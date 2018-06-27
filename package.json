@@ -1,0 +1,14 @@
+{
+  "name": "socket-chat-app",
+  "version": "0.0.1",
+  "author": "Thilanka Kasun",
+  "description": "simple-chat-app",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.15.2",
+    "socket.io": "^2.1.1",
+    "typed.js": "^2.0.8"
+  }
+}
