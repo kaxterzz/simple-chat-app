@@ -9,6 +9,7 @@
   "dependencies": {
     "express": "^4.15.2",
     "socket.io": "^2.1.1",
+    "socketio-over-nodejs": "^3.0.2",
     "typed.js": "^2.0.8"
   }
 }

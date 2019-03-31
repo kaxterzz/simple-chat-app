@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Chat</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Advent Pro' rel='stylesheet'>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <style>
+        #online-users {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            font-family: 'Advent Pro';
+        }
+        
+        #online-users li {
+            padding: 5px 10px;
+        }
+        
+        #online-users li:nth-child(odd) {
+            background: #eee;
+        }
+        
+        .info-msg {
+            font-family: 'Advent Pro';
+            font-size: 22px;
+        }
+        
+        .vheight {
+            height: 50vh;
+            overflow-y: auto;
+        }
+        
+        .scroll-style {
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .scroll-style-1::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            background-color: #f2f2f2;
+        }
+        
+        .scroll-style-1::-webkit-scrollbar {
+            width: 12px;
+            background-color: #b2b0b0;
+        }
+        
+        .scroll-style-1::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+            background-color: #b2b0b0;
+        }
+        
+        .msg-wrapper:last-child {
+            margin-bottom: 10px;
+        }
+    </style>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <div class="body-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-9 border-right">
+                    <div class="row">
+                        <div class="col-md-12 mt-2 scroll-style scroll-style-1">
+                            <div class="col-md-6 border-right embed-responsive embed-responsive-1by1">
+                                <video src="" id="video" class="embed-responsive-item" autoplay="true"></video>
+                            </div>
+                            <div class="col-md-6">
+                                <img class="rounded img-fluid" id="play">
+                                <canvas id="preview"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <div class="col-md-12 border-bottom vheight scroll-style-1">
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-12 info-msg text-center" id="info-msg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 vheight scroll-style-1">
+                            <span class="text-center" id="num-of-online"></span>
+                            <ul id="online-users"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="video.js"></script>
+</body>
+
+</html>
