@@ -50,12 +50,16 @@ $(function() {
     // });
 
     $('#m').keypress(function(e) {
-        if (!(e.keyCode == 13)) {
-          typing = true;
-          socket.emit('is typing', typing);
-          clearTimeout(timeout);
-          timeout = setTimeout(timeoutFunction, 2000);
-        }
+      if (e.keyCode == 13) {
+           socket.emit('new message', $('#m').val());
+           $('#m').val('');
+           return false;
+       } else {
+           typing = true;
+           socket.emit('is typing', typing);
+           clearTimeout(timeout);
+           timeout = setTimeout(timeoutFunction, 2000);
+       }
     });
 
     $('form').submit(function(e){
