@@ -62,7 +62,7 @@ $(function() {
        }
     });
 
-    $('form').submit(function(e){
+    $('#msg_form').submit(function(e){
       e.preventDefault(); // prevents page reloading
       socket.emit('new message', $('#m').val());
       $('#m').val('');
