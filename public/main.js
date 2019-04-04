@@ -35,18 +35,34 @@ $(function() {
         $('#num-of-online').css({'color':data.colorName}).text('Total online : ' + data.numUsers);
     });
 
-    $('#m').keypress(function(e) {
-        if (e.keyCode == 13) {
-            socket.emit('new message', $('#m').val());
-            $('#m').val('');
-            return false;
-        } else {
-            typing = true;
-            socket.emit('is typing', typing);
-            clearTimeout(timeout);
-            timeout = setTimeout(timeoutFunction, 2000);
-        }
+    // $('#m').keypress(function(e) {
+    //     if (e.keyCode == 13) {
+    //         socket.emit('new message', $('#m').val());
+    //         $('#m').val('');
+    //         return false;
+    //     } else {
+    //         typing = true;
+    //         socket.emit('is typing', typing);
+    //         clearTimeout(timeout);
+    //         timeout = setTimeout(timeoutFunction, 2000);
+    //     }
+    //
+    // });
 
+    $('#m').keypress(function(e) {
+        if (!(e.keyCode == 13)) {
+          typing = true;
+          socket.emit('is typing', typing);
+          clearTimeout(timeout);
+          timeout = setTimeout(timeoutFunction, 2000);
+        }
+    });
+
+    $('form').submit(function(e){
+      e.preventDefault(); // prevents page reloading
+      socket.emit('new message', $('#m').val());
+      $('#m').val('');
+      return false;
     });
 
     socket.on('is typing', function(data){
