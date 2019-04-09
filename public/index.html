@@ -4,61 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Simple Chat</title>
+    <title>Universal Chat</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href='https://fonts.googleapis.com/css?family=Advent Pro' rel='stylesheet'>
-    <style>
-        #online-users {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            font-family: 'Advent Pro';
-        }
-        
-        #online-users li {
-            padding: 5px 10px;
-        }
-        
-        #online-users li:nth-child(odd) {
-            background: #eee;
-        }
-        
-        .info-msg {
-            font-family: 'Advent Pro';
-            font-size: 22px;
-        }
-        
-        .vheight {
-            height: 50vh;
-            overflow-y: auto;
-        }
-        
-        .scroll-style {
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        
-        .scroll-style-1::-webkit-scrollbar-track {
-            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            background-color: #f2f2f2;
-        }
-        
-        .scroll-style-1::-webkit-scrollbar {
-            width: 12px;
-            background-color: #b2b0b0;
-        }
-        
-        .scroll-style-1::-webkit-scrollbar-thumb {
-            border-radius: 10px;
-            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
-            background-color: #b2b0b0;
-        }
-        
-        .msg-wrapper:last-child {
-            margin-bottom: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
+
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -68,9 +19,35 @@
 <body>
 
     <div class="body-wrapper">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="#">
+            <img src="images/logo.png" width="30" height="30" class="d-inline-block align-top" alt="logo">
+            Universal Chat
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                  <a class="nav-link active" href="#"><i class="fas fa-comments"></i>&nbsp;Chat <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="#"><i class="fas fa-video"></i>&nbsp;Video</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="#"><i class="fas fa-info-circle"></i>&nbsp;Info</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-mug-hot"></i>&nbsp;Buy Me A Coffe</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
         <div class="container-fluid">
             <div class="row">
-
                 <div class="col-md-7 d-none d-md-block border-right">
                     <div class="row">
                         <div class="col-md-12 mt-2 scroll-style scroll-style-1" id="messages">
