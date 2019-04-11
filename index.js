@@ -90,6 +90,6 @@ function randomColorGen(){
   return randomColor;
 }
 
-http.listen(process.env.PORT || 5400, function(){
+http.listen(process.env.PORT || 3773, function(){
  console.log('listening on *:',process.env.PORT);
 });
