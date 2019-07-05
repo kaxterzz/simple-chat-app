@@ -47,6 +47,7 @@ socket.on('new message', function(data){
   socket.emit('my message', {
     _id: Math.round(Math.random() * 1000000),
     colorName: socket.color,
+    createdAt: Date.now(),
     username: 'You',
     user: {
       _id: Math.round(Math.random() * 1000000),
@@ -57,6 +58,7 @@ socket.on('new message', function(data){
   socket.broadcast.emit('new message', {
     _id: Math.round(Math.random() * 1000000),
     colorName: socket.color,
+    createdAt: Date.now(),
     user: {
       _id: Math.round(Math.random() * 1000000),
       name: socket.username
