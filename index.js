@@ -45,12 +45,22 @@ socket.on('add user', function(data){
 
 socket.on('new message', function(data){
   socket.emit('my message', {
+    _id: Math.round(Math.random() * 1000000),
     colorName: socket.color,
     username: 'You',
+    user: {
+      _id: Math.round(Math.random() * 1000000),
+      name: 'You'
+    },
     message: data
   });
   socket.broadcast.emit('new message', {
+    _id: Math.round(Math.random() * 1000000),
     colorName: socket.color,
+    user: {
+      _id: Math.round(Math.random() * 1000000),
+      name: socket.username
+    },
     username: socket.username,
     message: data
   });
