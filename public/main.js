@@ -88,7 +88,7 @@ $(function() {
                 'style': 'color:' + data.colorName
             }).text(data.username + ' : ').add($('<span>', {
                 'class': 'inner participant-msg'
-            }).text(data.message))
+            }).text(data.text))
         }).appendTo('#messages');
     });
     socket.on('new message', function(data) {
@@ -100,7 +100,7 @@ $(function() {
                 'style': 'color:' + data.colorName
             }).text(data.username + ' : ').add($('<span>', {
                 'class': 'inner participant-msg'
-            }).text(data.message))
+            }).text(data.text))
         }).appendTo('#messages');
     });
 
