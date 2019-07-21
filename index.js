@@ -39,7 +39,8 @@ socket.on('add user', function(data){
   socket.broadcast.emit('add user', {
     colorName: colorName,
     username : socket.username,
-    numUsers : numUsers
+    numUsers : numUsers,
+    msg: socket.username + ' joined'
   });
 });
 
@@ -90,7 +91,8 @@ socket.on('disconnect', function(data){
     socket.broadcast.emit('user left', {
       colorName: socket.color,
       username: socket.username,
-      numUsers : numUsers
+      numUsers : numUsers,
+      msg: socket.username + ' left'
     });
   }
 });

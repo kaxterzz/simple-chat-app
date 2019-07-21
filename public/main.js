@@ -31,7 +31,7 @@ $(function() {
     });
 
     socket.on('add user', function(data) {
-        $('#info-msg').append($('<span>').addClass('joined-uname').css({ 'color': data.colorName }).text(data.username + ' joined')).append($('</span><br>'));
+        $('#info-msg').append($('<span>').addClass('joined-uname').css({ 'color': data.colorName }).text(data.msg)).append($('</span><br>'));
         $('#num-of-online').css({ 'color': data.colorName }).text('Total online : ' + data.numUsers);
     });
 
@@ -110,7 +110,7 @@ $(function() {
     });
 
     socket.on('user left', function(data) {
-        $('#info-msg').append($('<span>').addClass('left-uname').css({ 'color': data.colorName }).text(data.username + ' left')).append($('</span><br>'));
+        $('#info-msg').append($('<span>').addClass('left-uname').css({ 'color': data.colorName }).text(data.msg)).append($('</span><br>'));
         $('#num-of-online').css({ 'color': data.colorName }).text('Total online : ' + data.numUsers);
         removeOnlinename(data.username);
         // if(onlinestatus != 0){
