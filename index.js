@@ -39,32 +39,33 @@ socket.on('add user', function(data){
   socket.broadcast.emit('add user', {
     colorName: colorName,
     username : socket.username,
-    numUsers : numUsers
+    numUsers : numUsers,
+    msg: socket.username + ' joined'
   });
 });
 
 socket.on('new message', function(data){
   socket.emit('my message', {
     _id: Math.round(Math.random() * 1000000),
-    colorName: socket.color,
+    text: data,
     createdAt: Date.now(),
-    username: 'You',
     user: {
       _id: Math.round(Math.random() * 1000000),
       name: 'You'
     },
-    message: data
+    colorName: socket.color,
+    username: 'You',
   });
   socket.broadcast.emit('new message', {
     _id: Math.round(Math.random() * 1000000),
-    colorName: socket.color,
+    text: data,
     createdAt: Date.now(),
     user: {
       _id: Math.round(Math.random() * 1000000),
       name: socket.username
     },
+    colorName: socket.color,
     username: socket.username,
-    message: data
   });
 
 });
@@ -90,7 +91,8 @@ socket.on('disconnect', function(data){
     socket.broadcast.emit('user left', {
       colorName: socket.color,
       username: socket.username,
-      numUsers : numUsers
+      numUsers : numUsers,
+      msg: socket.username + ' left'
     });
   }
 });
