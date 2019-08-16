@@ -95,6 +95,15 @@ socket.on('disconnect', function(data){
   }
 });
 
+socket.on('exchange', function(data){
+    socket.broadcast.emit('exchange', {
+      to: data.to,
+      from: data.from,
+      candidate: data.candidate,
+      sdp : data.sdp
+    });
+});
+
 });
 
 function randomColorGen(){
