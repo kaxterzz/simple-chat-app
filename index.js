@@ -108,7 +108,7 @@ socket.on('exchange', function(data){
 
 socket.on('video exchange', function(data){
   socket.broadcast.emit('video exchange', {
-    socketIds: socket.id
+    socketId: socket.id
   });
 });
 
