@@ -3,10 +3,23 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path = require('path');
+const cors = require('cors');
+const passport = require('passport');
+const gauth = require('./g-auth');
+const fauth = require('./f-auth');
+
+gauth(passport);
+fauth(passport);
+app.use(passport.initialize());
+
+app.use(cors());
+app.options('*', cors());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Methods", "POST,GET,PUT,DELETE");
+  res.header("Content-Type", "application/json");
   var ip = req.headers['x-forwarded-for'] ||
        req.connection.remoteAddress ||
        req.socket.remoteAddress ||
@@ -15,10 +28,65 @@ app.use(function(req, res, next) {
     next();
 });
 
+app.get('/auth/google', passport.authenticate('google', {
+  scope: [
+    'https://www.googleapis.com/auth/userinfo.email',
+    'https://www.googleapis.com/auth/userinfo.profile'
+  ]
+}));
+
+
+
+
 var numUsers = 0;
 
 io.on('connection', function(socket){
 var addedUser = false;
+
+app.get('/auth/google/callback',
+    passport.authenticate('google', {failureRedirect:'/'}),
+    (req, res) => {
+        // var f = JSON.stringify(req.user)
+        req.session.token = req.user.token;
+
+        //res.json({status:"success", token:req.user.token, data:req.user.profile});
+
+        var user = {
+          id:req.user.profile._json.sub,
+          name:req.user.profile._json.name,
+          email:req.user.profile._json.email,
+          picture:req.user.profile._json.picture
+        }
+
+        res.cookie('token',req.session.token);
+        res.cookie('user',user);
+        
+        socket.emit('auth status', {
+          status : true,
+          token : req.session.token
+        });
+
+        socket.broadcast.emit('online users oauth',{
+          colorName: colorName,
+          username : user.name,
+          numUsers : numUsers
+        });
+        socket.broadcast.emit('add user oauth', {
+          colorName: colorName,
+          username : user.name,
+          numUsers : numUsers,
+          msg: user.name + ' joined'
+        });
+
+        socket.on('add user oauth', function(data){
+          var colorName = randomColorGen();
+          socket.color = colorName;
+          socket.username = user.name;
+          ++numUsers;
+          addedUser = true;
+        });
+    }
+);
 
 socket.on('add user', function(data){
   var colorName = randomColorGen();
