@@ -177,7 +177,7 @@ io.on('connection', function(socket) {
     socket.on('video exchange', function(data) {
         data.from = socket.id;
         let to = io.sockets.connected[data.to];
-        socket.broadcast.emit('video exchange', data);
+        to.emit('video exchange', data);
     });
 
 });
