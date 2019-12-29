@@ -42,6 +42,7 @@ var numUsers = 0;
 
 io.on('connection', function(socket) {
     var addedUser = false;
+    const socketId = socket.id;
 
     app.get('/auth/google/callback',
         passport.authenticate('google', { failureRedirect: '/' }),
@@ -175,7 +176,7 @@ io.on('connection', function(socket) {
     });
 
     socket.on('video exchange', function(data) {
-        data.from = socket.id;
+        data.from = socketId;
         let to = io.sockets.connected[data.to];
         to.emit('video exchange', data);
     });
