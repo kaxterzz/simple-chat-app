@@ -139,6 +139,32 @@ io.on('connection', function(socket) {
 
     });
 
+    socket.on('new private message', function(data) {
+        socket.emit('my new message', {
+            _id: Math.round(Math.random() * 1000000),
+            text: data,
+            createdAt: Date.now(),
+            user: {
+                _id: Math.round(Math.random() * 1000000),
+                name: 'You'
+            },
+            colorName: socket.color,
+            username: 'You',
+        });
+        socket.emit('new private message', {
+            _id: Math.round(Math.random() * 1000000),
+            text: data,
+            createdAt: Date.now(),
+            user: {
+                _id: Math.round(Math.random() * 1000000),
+                name: socket.username
+            },
+            colorName: socket.color,
+            username: socket.username,
+        });
+
+    });
+
     socket.on('is typing', function(data) {
         if (data == true) {
             socket.broadcast.emit('is typing', {
