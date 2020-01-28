@@ -113,6 +113,12 @@ io.on('connection', function(socket) {
         });
     });
 
+    socket.on('send_res', function(data){
+        socket.emit('get_res',{
+            output: data
+        })
+    });
+
     socket.on('new message', function(data) {
         socket.emit('my message', {
             _id: Math.round(Math.random() * 1000000),
