@@ -114,9 +114,12 @@ io.on('connection', function(socket) {
     });
 
     socket.on('send_res', function(data){
-        socket.broadcast.emit('get_res',{
+        socket.broadcast.emit('send_res',{
             output: data
-        })
+        });
+        socket.emit('send_res',{
+            output: data
+        });
     });
 
     socket.on('new message', function(data) {
