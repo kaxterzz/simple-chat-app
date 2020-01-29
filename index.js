@@ -113,11 +113,11 @@ io.on('connection', function(socket) {
         });
     });
 
-    socket.on('send_res', function(data){
-        socket.broadcast.emit('send_res',{
+    socket.on('send res', function(data){
+        socket.broadcast.emit('get res',{
             output: data
         });
-        socket.emit('send_res',{
+        socket.emit('get res',{
             output: data
         });
     });
